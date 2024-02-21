@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Browsing</title>
+<!-- Adicionando ícone na aba -->
+<link rel="icon" href="icones\guia.ico" type="image/x-icon">
+<style>
+/* Estilos CSS */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgba(10, 10, 10); /* 90% de preto */
+}
+.menu {
+  width: 100%;
+  background-color: transparent;
+  z-index: 1000;
+  padding: 10px;
+  box-sizing: border-box;
+  display: none; /* Inicialmente oculto */
+  justify-content: flex-start; /* Alterado para alinhar à esquerda */
+  align-items: center; /* Centraliza verticalmente */
+}
+.menu-logo {
+  margin-right: auto; /* Move o logo para o canto esquerdo */
+  max-height: 40px; /* Define uma altura máxima para o logotipo */
+}
+.menu-item {
+  margin-left: 20px; /* Adicionado margem à esquerda para separar os itens */
+  color: #fff; /* Cor do texto */
+  text-decoration: none;
+  align-self: flex-end; /* Posiciona no inferior */
+  font-size: 24px; /* Tamanho do ícone */
+}
+.menu-icon img {
+  width: 24px; /* Define a largura do ícone */
+  height: 24px; /* Define a altura do ícone */
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Inicia fora da tela */
+  width: 250px;
+  height: 100%;
+  background-color: rgb(0, 0, 0); /* 90% de preto */
+  transition: right 0.3s ease; /* Adiciona transição suave */
+  z-index: 1500; /* Z-index maior que o do menu para sobreposição */
+}
+.sidebar.active {
+  right: 0; /* Move a barra lateral para dentro da tela */
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px; /* Posicionamento no canto esquerdo */
+  color: #fff;
+  cursor: pointer;
+  font-size: 24px;
+}
+.sidebar-text {
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 10px; /* Mesma posição vertical do botão "X" */
+  left: 0;
+  width: 100%;
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.3); /* Cor de fundo com 90% de opacidade */
+  padding: 20px;
+  max-width: 90%; /* Largura máxima */
+  display: none; /* Inicialmente oculto */
+  z-index: 2000;
+  border-radius: 0; /* Remover cantos arredondados */
+}
+.modal-content {
+  text-align: center;
+  color: #fff; /* Cor do texto */
+}
+.modal-button {
+  padding: 0; /* Remove o preenchimento */
+  background-color: transparent; /* Fundo transparente */
+  color: #007bff; /* Cor do texto azul */
+  border: none; /* Remove a borda */
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 16px;
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="menu" id="menu">
+  <img src="imagens\logotipo.png" alt="Logotipo" class="menu-logo"> <!-- Adiciona o logo -->
+  <!--<a href="#" class="menu-item">Ajuda</a>-->
+  <a href="#" class="menu-item" id="menu-icon"><img src="icones/menu.ico" alt="Menu" width="24" height="24"></a> <!-- Seu próprio ícone -->
+</div>
+<div class="sidebar" id="sidebar">
+  <!-- Conteúdo da barra lateral -->
+  <p class="sidebar-text">Barra Lateral</p> <!-- Alteração do texto -->
+  <span class="close-button" id="close-button">×</span> <!-- Botão "X" para fechar a barra lateral -->
+</div>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p><strong>ATENÇÃO!</strong> Random Browsing não se responsabiliza pelo conteúdo das páginas redirecionadas, pois todas são selecionadas de forma aleatória ou indexadas por usuários e você poderá encontrar conteúdo sensível não apropriado. Por isso, use este serviço por sua conta e risco. Caso deseje adicionar uma URL, fique à vontade. Nossa única regra é... quer saber, esqueça! Afinal, quem precisa de regras? Divirta-se! :)</p>
+    <button class="modal-button" id="modal-button">Estou de acordo</button>
+  </div>
+</div>
+<script>
+// Seleciona o botão aceitar, o modal, o ícone de menu e a barra lateral
+const modalButton = document.getElementById('modal-button');
+const modal = document.getElementById('modal');
+const menuIcon = document.getElementById('menu-icon');
+const sidebar = document.getElementById('sidebar');
+const closeButton = document.getElementById('close-button');
+const menu = document.getElementById('menu');
+
+// Adiciona um evento de clique ao botão aceitar
+modalButton.addEventListener('click', function() {
+  // Oculta o modal ao clicar no botão
+  modal.style.display = 'none';
+  // Exibe o menu após aceitar
+  menu.style.display = 'flex';
+});
+
+// Adiciona um evento de clique ao ícone de menu
+menuIcon.addEventListener('click', function() {
+  // Alternar classe 'active' na barra lateral ao clicar no ícone de menu
+  sidebar.classList.toggle('active');
+});
+
+// Adiciona um evento de clique ao botão de fechar
+closeButton.addEventListener('click', function() {
+  // Remove a classe 'active' da barra lateral ao clicar no botão de fechar
+  sidebar.classList.remove('active');
+});
+
+// Exibe o modal quando a página terminar de carregar
+window.addEventListener('load', function() {
+  modal.style.display = 'block';
+});
+</script>
+</body>
+</html>
